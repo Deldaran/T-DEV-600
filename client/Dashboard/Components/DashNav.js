@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import MenuCreate from './MenuCreate';
 import Menu from './Menu';
 import { FontAwesome } from '@expo/vector-icons';
+
+import axios from 'axios';
 
 const DashNav = ({createProject,listProject, deleteProject, isdeleteProject, deleteOpen, isDeleteOpen}) => {
   const numList = () => {
@@ -10,7 +12,7 @@ const DashNav = ({createProject,listProject, deleteProject, isdeleteProject, del
       <View style={style.projectContainer}>
         {listProject.map((project, index) => (
           <View key={index} style={style.projectStyle}>
-            <Text>project {index}</Text>
+            <Text selectable>{project.name}</Text>
             {isDeleteOpen && <TouchableOpacity style={style.boutonTrashStyle} onPress={() => deleteProject(index)}>
               <FontAwesome name={"trash"} size={18} color={"white"} />
             </TouchableOpacity>}
@@ -21,7 +23,7 @@ const DashNav = ({createProject,listProject, deleteProject, isdeleteProject, del
   };
   return (
     <View style={style.container}>
-      <Text style={style.textStyle}>Your Board</Text>
+      <Text style={style.textStyle}>Your Board </Text>
       <View style={style.menuContenair}>
         <Menu createProject={createProject} deleteProject={deleteProject} deleteOpen={deleteOpen}/>
       </View>

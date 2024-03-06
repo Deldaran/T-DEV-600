@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import DashNav from '../Component/DashNav';
-import List from "./List"
+import DashNav from '../Components/DashNav';
+import List from "./List";
 
 const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen, isDeleteOpen}) => {
   return (
