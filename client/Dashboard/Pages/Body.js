@@ -40,12 +40,12 @@ const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen,
 const style = StyleSheet.create({
   BodyPage: {
     width: "100%",
-    height: "100%",
+    minHeight: "100%",
+    backgroundColor: "white"
   },
   container: {
-    height: "100%",
+    minHeight: "100%",
     flexDirection: 'row',
-    height: "100%"
   },
   listContainer: {
     display: "flex",
