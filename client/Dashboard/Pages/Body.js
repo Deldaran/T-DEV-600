@@ -3,6 +3,7 @@ import { View, StyleSheet, ScrollView, TouchableOpacity, Pressable, Text } from 
 import List from "./List"
 import { create_list, select_list } from '../../Utils/Controller/ListController';
 
+
 const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen, isDeleteOpen}) => {
   
   const [listCard,setListCard]=useState([{},{}])
@@ -11,7 +12,7 @@ const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen,
 
   const createList = () => {  
       create_list() 
-      select_list()
+     
       setListList([...listList, {}]);
       console.log(listList)     
     }
