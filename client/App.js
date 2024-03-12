@@ -3,7 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import Header from './Dashboard/Pages/Header';
 import Body from './Dashboard/Pages/Body';
 import Footer from './Dashboard/Pages/Footer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { fetchBoards } from './Utils/utils';
+
 
 export default function App() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -14,8 +16,9 @@ export default function App() {
     setIsNavOpen(!isNavOpen);
   }
   const createProject = () => {
-    setListProject([...listProject, {}]);
-  }
+    setListProject(prevList => [...prevList, { name: "New Project" }]);
+  };
+  
   const deleteProject = (index) => {
     setListProject(listProject.filter((project, i) => i !== index));
   }
