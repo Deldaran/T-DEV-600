@@ -34,7 +34,8 @@ const style = StyleSheet.create({
     container: {
         backgroundColor: '#A1B5FE',
         width: '30%',
-        height: '100%',
+        minHeight: 900,
+        
       },
     menuContenair:{
         flexDirection: "row",
