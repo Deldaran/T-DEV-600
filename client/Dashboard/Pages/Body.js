@@ -23,17 +23,21 @@ const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen,
   }
   
   return (
-    <ScrollView style= {style.BodyPage}>
-      <View style={style.container}>
-        {isNavOpen && <DashNav createProject={createProject} listProject={listProject} deleteProject={deleteProject} deleteOpen={deleteOpen} isDeleteOpen={isDeleteOpen}/>}
-          <ScrollView style={style.listContainer}>
-            {selectList(listList)}
-          </ScrollView>
+    <View style= {style.BodyPage}>
+      <View style= {style.createListButton}>
           <Pressable onPress={createList}>
-            <Text style= {style.createListButton}>+</Text>
+            <Text style= {style.createButtonText}>+</Text>
           </Pressable>
       </View>
-    </ScrollView>
+      <ScrollView >        
+        <View style={style.container}>
+          {isNavOpen && <DashNav createProject={createProject} listProject={listProject} deleteProject={deleteProject} deleteOpen={deleteOpen} isDeleteOpen={isDeleteOpen}/>}
+            <ScrollView style={style.listContainer} >
+              {selectList(listList)}
+            </ScrollView>          
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -41,11 +45,11 @@ const style = StyleSheet.create({
   BodyPage: {
     width: "100%",
     height: "100%",
+    backgroundColor: "white"
   },
   container: {
-    height: "100%",
+    minHeight: "100%",
     flexDirection: 'row',
-    height: "100%"
   },
   listContainer: {
     display: "flex",
@@ -54,19 +58,27 @@ const style = StyleSheet.create({
     flexWrap: "wrap"
   },
   createListButton: {
+    position: "absolute",
+    bottom: 130,
+    right: 20,
+    zIndex: 2,
     marginRight: 20,
     marginTop: 10,
     padding: 10,
     paddingLeft: 15,
     paddingRight: 15,
-    backgroundColor: "#A1B5FE",
-    fontSize: 20,
-    borderRadius: 15
+    backgroundColor: "#A1B5FE",    
+    borderRadius: 15,
+   
   },
   selectList: {
+    margin: 20,
     display: "grid",
       gridTemplateColumns: "repeat(2, 1fr)",
       gridTemplateRows: "repeat(4, 1fr)",
+  },
+  createButtonText: {
+    fontSize: 25,
   }
 });
 
