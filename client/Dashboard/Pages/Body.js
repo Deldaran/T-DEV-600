@@ -28,11 +28,11 @@ const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen,
           <Pressable onPress={createList}>
             <Text style= {style.createButtonText}>+</Text>
           </Pressable>
-        </View>
+      </View>
       <ScrollView >        
         <View style={style.container}>
           {isNavOpen && <DashNav createProject={createProject} listProject={listProject} deleteProject={deleteProject} deleteOpen={deleteOpen} isDeleteOpen={isDeleteOpen}/>}
-            <ScrollView style={style.listContainer}>
+            <ScrollView style={style.listContainer} >
               {selectList(listList)}
             </ScrollView>          
         </View>
@@ -59,7 +59,7 @@ const style = StyleSheet.create({
   },
   createListButton: {
     position: "absolute",
-    top: 750,
+    bottom: 130,
     right: 20,
     zIndex: 2,
     marginRight: 20,
@@ -68,7 +68,8 @@ const style = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     backgroundColor: "#A1B5FE",    
-    borderRadius: 15
+    borderRadius: 15,
+   
   },
   selectList: {
     margin: 20,
