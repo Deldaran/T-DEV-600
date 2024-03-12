@@ -24,7 +24,7 @@ const fetchLists = async (boardId) => {
 //getCard function
 const fetchCards = async (listId) => {
     try {
-      const response = await axios.get(`http://10.73.188.126//lists/${listId}/cards`);
+      const response = await axios.get(`http://10.73.188.126/1/lists/${listId}/cards`);
         return response.data;  // Return the data directly
     }
     catch (error) {
@@ -33,4 +33,4 @@ const fetchCards = async (listId) => {
     }
 }
 
-export { fetchBoards, fetchLists };
+// export { fetchBoards, fetchLists };

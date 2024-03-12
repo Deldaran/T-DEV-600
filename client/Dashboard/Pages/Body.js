@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, Pressable, Text } from 'react-native';
-import DashNav from '../Component/DashNav';
 import List from "./List"
-import { create_list } from '../../Utils/Controller/ListController';
+import { create_list, select_list } from '../../Utils/Controller/ListController';
 
 const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen, isDeleteOpen}) => {
   
@@ -10,10 +9,15 @@ const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen,
 
   const [listList, setListList]= useState([])
 
-  const createList = () => {      
-      setListList([...listList, {create_list}]);
+  const createList = () => {  
+      create_list() 
+      select_list()
+      setListList([...listList, {}]);
+      console.log(listList)     
     }
   const selectList = ()=>{
+    console.log(select_list)
+    select_list()
     return(
         <View style= {style.selectList}>
         { listList.map((card, index)=>(

@@ -6,10 +6,8 @@ const idBoard = "5abbe4b7ddc1b351ef961414"
 
 export const create_list = async () => {
     try {
-      const response = await axios.post('https://api.trello.com/1/lists?name={gege}', {
-        headers: {
-          'Accept': 'application/javascript', // Specify the expected MIME type
-        },
+      const response = await axios.post('https://api.trello.com/lists?name={gege}', {
+        
         params: {
           idBoard: idBoard,
           apiKey: apiKey,
@@ -17,8 +15,8 @@ export const create_list = async () => {
         }
       }, 
       );
-      console.log(response.text)
-      return response.text; 
+      console.log(response.data)
+      return response.data; 
     } catch (error) {
       console.log('An error occurred while fetching boards', error);
       return [];  
@@ -27,18 +25,15 @@ export const create_list = async () => {
 
 export const select_list = async () => {
     try {
-      const response = await axios.get('https://api.trello.com/1/lists/{1}', 
+      const response = await axios.get(`https://api.trello.com/boards/{${idBoard}}/lists`, 
         {
-          headers: {
-            'Accept': 'application/javascript', // Specify the expected MIME type
-          },
+         
            params:{
             apiKey: apiKey,
             token: token
            } 
         });
-      console.log(response.text)
-      return response.data; 
+      return response.json; 
     } catch (error) {
       console.log('An error occurred while fetching boards', error);
       return [];  
@@ -47,12 +42,11 @@ export const select_list = async () => {
 
 export const update_list = async () => {
     try {
-      const response = await axios.put('http://10.73.188.126/1/lists', 
+      const response = await axios.put('http://10.73.188.126/lists', 
         {     
+          
            name: "List",
-           headers: {
-            'Accept': 'application/javascript', // Specify the expected MIME type
-           },
+          
            params:{
             apiKey: apiKey,
             token: token
@@ -68,12 +62,11 @@ export const update_list = async () => {
 
 export const delete_list = async () => {
     try {
-      const response = await axios.delete('http://10.73.188.126/1/lists', 
-        {     
+      const response = await axios.delete('http://10.73.188.126/lists', 
+        {    
+          
            name: "List",
-           headers: {
-            'Accept': 'application/javascript', // Specify the expected MIME type
-           },
+          
            params:{
             apiKey: apiKey,
             token: token
