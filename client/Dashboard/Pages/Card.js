@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
-import ButtonCard from "../Component/ButtonCard";
+import ButtonCard from "../Components/ButtonCard";
 
 const Card = ({ titleCard }) => {
   const [title, setTitle] = useState(() => {

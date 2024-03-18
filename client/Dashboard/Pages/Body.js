@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, Pressable, Text } from 'react-native';
-import DashNav from '../Component/DashNav';
+import DashNav from "../Components/DashNav"
 import List from "./List"
 
 const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen, isDeleteOpen}) => {
