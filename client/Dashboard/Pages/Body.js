@@ -96,9 +96,7 @@ const style = StyleSheet.create({
   },
   selectList: {
     margin: 20,
-    display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
-    gridTemplateRows: "repeat(4, 1fr)",
+    flex: 1,
   },
   createButtonText: {
     fontSize: 25,
