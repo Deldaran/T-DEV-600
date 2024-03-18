@@ -23,21 +23,19 @@ const Card = ({ titleCard }) => {
   };
 
   return (
-    <View style={styles.CardPage}>
       <View style={styles.CardBody}>
         <Pressable onPress={handlePress}>
           <Text style={componentStyle.text}>{title}</Text>
           { pressed ? <ButtonCard/> : ""}
         </Pressable>
       </View>
-    </View>
   );
 };
 
 const styles = StyleSheet.create({
   CardBody: {
     backgroundColor: '#ffffff',
-    maxWidth: "90%",
+    width: '100px',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 10,

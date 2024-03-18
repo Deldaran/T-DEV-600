@@ -12,8 +12,8 @@ const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen,
     setListCard([...listCard, {}]);
   }
 
-  const deleteList = (index) => {
-      setListList(listList.filter((list, i) => i !== index));
+  const deleteList = () => {
+      setListList(listList.filter((list) => boardSelected.id !== list.id));
     }
   const updateList = (index) => {
       for(i in listList){
@@ -41,7 +41,7 @@ const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen,
     )
   }
   return (
-    <View style= {style.BodyPage}>
+    <View style= {style.bodyPage}>
       <View style= {style.createListButton}>
           <Pressable onPress={createList}>
             <Text style= {style.createButtonText}>+</Text>
@@ -49,7 +49,14 @@ const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen,
       </View>
       <ScrollView >        
         <View style={style.container}>
-          {isNavOpen && <DashNav selectBoard={selectBoard} createProject={createProject} listProject={listProject} deleteProject={deleteProject} deleteOpen={deleteOpen} isDeleteOpen={isDeleteOpen}/>}
+          {isNavOpen && 
+          <DashNav 
+            selectBoard={selectBoard} 
+            createProject={createProject} 
+            listProject={listProject} 
+            deleteProject={deleteProject} 
+            deleteOpen={deleteOpen} 
+            isDeleteOpen={isDeleteOpen}/>}
             <ScrollView style={style.listContainer} >
               {selectList(listList)}
             </ScrollView>          
@@ -60,7 +67,7 @@ const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen,
 };
 
 const style = StyleSheet.create({
-  BodyPage: {
+  bodyPage: {
     width: "100%",
     height: "100%",
     backgroundColor: "white"
@@ -70,10 +77,8 @@ const style = StyleSheet.create({
     flexDirection: 'row',
   },
   listContainer: {
-    display: "flex",
     flexDirection: 'row',
     marginBottom: 10,
-    flexWrap: "wrap"
   },
   createListButton: {
     position: "absolute",
@@ -92,8 +97,8 @@ const style = StyleSheet.create({
   selectList: {
     margin: 20,
     display: "grid",
-      gridTemplateColumns: "repeat(2, 1fr)",
-      gridTemplateRows: "repeat(4, 1fr)",
+    gridTemplateColumns: "repeat(2, 1fr)",
+    gridTemplateRows: "repeat(4, 1fr)",
   },
   createButtonText: {
     fontSize: 25,

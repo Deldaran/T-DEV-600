@@ -7,9 +7,7 @@ import { fetchCard } from "../../Utils/utils";
 const List = ({list, titleList, updateList, deleteList, createCard, boardSelected}) => {
 
     const [listCard, setListCard]= useState([])
-
-   
-
+    
     useEffect(() => {
         if(Object.keys(boardSelected).length !== 0){
             fetchCard(list.id, setListCard);
@@ -24,9 +22,8 @@ const List = ({list, titleList, updateList, deleteList, createCard, boardSelecte
             </View>
         )
     }
-    console.log(titleList)
   return (
-    <View style= {styles.ListPage}>
+    <ScrollView style= {styles.ListPage}>
         <View style= {styles.ListHeader}>
             <Text style = {componentStyle.text}>{titleList}</Text>
             <Pressable onPress={deleteList}>
@@ -37,14 +34,14 @@ const List = ({list, titleList, updateList, deleteList, createCard, boardSelecte
             </Pressable>           
         </View>
         <ScrollView style = {styles.ListCard}>
-           {selectCard(listCard)}
+           {selectCard()}
         </ScrollView>
         <View style= {styles.ListFooter}>
             <Pressable onPress={createCard}>
             <Text style = {componentStyle.text}>+ Add a card</Text> 
             </Pressable>
         </View>
-    </View>
+    </ScrollView>
   )
 };
 
@@ -59,7 +56,6 @@ const styles = StyleSheet.create({
         height: "auto",
     },
     ListHeader: {
-        height: "15%",
         backgroundColor: "#363636",
         flexDirection: "row",
         justifyContent: "space-between",
@@ -67,10 +63,6 @@ const styles = StyleSheet.create({
         padding: 30,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-    },
-    ListCard: {
-
-        height: "75%",
     },
     ListFooter: {        
         height: "10%",
