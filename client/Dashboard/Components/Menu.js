@@ -5,9 +5,6 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 const Menu = ({createProject, deleteOpen}) => {
   return (
     <View style={style.textStyle}>
-        <TouchableOpacity style={style.boutonPlusStyle} onPress={createProject}>
-            <FontAwesome name={"plus"} size={18} color={"white"}  />
-        </TouchableOpacity>
         <TouchableOpacity style={style.boutonPencilStyle}>
             <FontAwesome name={"pencil"} size={18} color={"white"} />
         </TouchableOpacity>

@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import MenuCreate from './MenuCreate';
 import Menu from './Menu';
 import { FontAwesome } from '@expo/vector-icons';
+import CreateMenu from './CreateMenu';
 
 const DashNav = ({createProject,listProject, deleteProject, isdeleteProject, deleteOpen, isDeleteOpen, selectBoard}) => {
+    const [newProjectName, setNewProjectName] = useState('');
+    const [isEditing, setIsEditing] = useState(false);
+
+    const handleCreateProject = () => {
+        createProject(newProjectName);
+        setNewProjectName('');
+        setIsEditing(false);
+        };
   const numList = () => {
     return (
       <View style={style.projectContainer}>
@@ -23,7 +32,17 @@ const DashNav = ({createProject,listProject, deleteProject, isdeleteProject, del
     <View style={style.container}>
       <Text style={style.textStyle}>Your Board</Text>
       <View style={style.menuContenair}>
-        <Menu createProject={createProject} deleteProject={deleteProject} deleteOpen={deleteOpen}/>
+        <Menu 
+            deleteProject={deleteProject} 
+            deleteOpen={deleteOpen}
+            />
+        <CreateMenu
+          newProjectName={newProjectName}
+          setNewProjectName={setNewProjectName}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+          handleCreateProject={handleCreateProject}
+        />
       </View>
       {listProject? numList(listProject): null}
     </View>

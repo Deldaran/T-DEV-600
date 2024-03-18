@@ -13,6 +13,7 @@ export default function App() {
   const [isDeleteOpen, setDeleteOpen] = useState(false);
   const [listList, setListList] = useState([])
   const [boardSelected, setBoardSelected] = useState({});
+  const [inputName, setInputName] = useState("");
 
   const selectboard = (board) => {
     setBoardSelected(board);
@@ -21,7 +22,8 @@ export default function App() {
     setIsNavOpen(!isNavOpen);
   }
   const createProject = () => {
-    setListProject(prevList => [...prevList, { name: "New Project" }]);
+    setListProject(prevList => [...prevList, { name: "" }]);
+    
   };
   
   const deleteProject = (index) => {
