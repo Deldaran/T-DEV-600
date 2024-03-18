@@ -4,7 +4,7 @@ import Header from './Dashboard/Pages/Header';
 import Body from './Dashboard/Pages/Body';
 import Footer from './Dashboard/Pages/Footer';
 import { useEffect, useState } from 'react';
-import { fetchBoards } from './Utils/utils';
+import { postProject, fetchBoards, postDeleteProject } from './Utils/utils';
 
 
 export default function App() {
@@ -13,7 +13,6 @@ export default function App() {
   const [isDeleteOpen, setDeleteOpen] = useState(false);
   const [listList, setListList] = useState([])
   const [boardSelected, setBoardSelected] = useState({});
-  const [inputName, setInputName] = useState("");
 
 
   const selectboard = (board) => {
@@ -22,13 +21,12 @@ export default function App() {
   const OpenNav = () => {
     setIsNavOpen(!isNavOpen);
   }
-  const createProject = () => {
-    setListProject(prevList => [...prevList, { name: "" }]);
-    
-  };
+  const createProject = (projectName)=>{
+    postProject(projectName, setListProject);
+  }
   
-  const deleteProject = (index) => {
-    setListProject(listProject.filter((project, i) => i !== index));
+  const deleteProject = (id) => {
+    postDeleteProject(id, setListProject);
   }
   const deleteOpen = () => {
     setDeleteOpen(!isDeleteOpen);

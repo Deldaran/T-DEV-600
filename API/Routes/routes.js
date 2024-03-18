@@ -62,6 +62,7 @@ router.put('/boards/:boardId', async (req, res) => {
 
 // POST route to creat board
 router.post('/boards', async (req, res) => {
+    console.log('req.body', req.body)
     try {
         const response = await axios.post('https://api.trello.com/1/boards', {
             key: apiKey,

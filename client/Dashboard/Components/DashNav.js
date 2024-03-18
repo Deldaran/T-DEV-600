@@ -20,7 +20,7 @@ const DashNav = ({createProject,listProject, deleteProject, isdeleteProject, del
         {listProject.map((project, index) => (
         <TouchableOpacity key={index} onPress={() => selectBoard(project)} style={style.projectStyle}>
             <Text>{project.name}</Text>
-            {isDeleteOpen && <TouchableOpacity style={style.boutonTrashStyle} onPress={() => deleteProject(index)}>
+            {isDeleteOpen && <TouchableOpacity style={style.boutonTrashStyle} onPress={() => deleteProject(project.id)}>
               <FontAwesome name={"trash"} size={18} color={"white"} />
             </TouchableOpacity>}
         </TouchableOpacity>
@@ -32,17 +32,18 @@ const DashNav = ({createProject,listProject, deleteProject, isdeleteProject, del
     <View style={style.container}>
       <Text style={style.textStyle}>Your Board</Text>
       <View style={style.menuContenair}>
-        <Menu 
-            deleteProject={deleteProject} 
-            deleteOpen={deleteOpen}
-            />
-        <CreateMenu
+      <CreateMenu
           newProjectName={newProjectName}
           setNewProjectName={setNewProjectName}
           isEditing={isEditing}
           setIsEditing={setIsEditing}
           handleCreateProject={handleCreateProject}
         />
+        <Menu 
+            deleteProject={deleteProject} 
+            deleteOpen={deleteOpen}
+            />
+       
       </View>
       {listProject? numList(listProject): null}
     </View>
@@ -56,7 +57,7 @@ const style = StyleSheet.create({
         height: '100%',
       },
     menuContenair:{
-        flexDirection: "row",
+        flexDirection: "column",
     },
     textStyle: {
       backgroundColor: "#7B8BC7",

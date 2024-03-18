@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, StyleSheet, Image, Modal, Text, Button } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import axios from 'axios';
 
 const NavBar = ({ OpenNav, isNavOpen }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -72,17 +71,15 @@ const NavBar = ({ OpenNav, isNavOpen }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingTop: 40,
-    paddingLeft: 10,
-    paddingRight: 10,
+    justifyContent: 'space-between',
+    width: '100%',
+    height: 100
   },
   leftContainer: {
-    flex: 1,
-    alignItems: 'flex-start',
+    justifyContent: 'center',
   },
   rightContainer: {
-    flex: 1,
-    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
   profileImage: {
     width: 24,
