@@ -5,38 +5,54 @@ const router = express.Router();
 const apiKey = "202292b24f90ccd79d598f27c783cad0";
 const token = "ATTAd46daef96786f96df05ec9ede66b1f1069b0b9ce6161c0fd79ed0d4964c815ca36C3CBCE";
 
+const api = axios.create({
+    baseURL: "https://api.trello.com/1",
+    params: {
+        key: apiKey,
+        token: token,
+    }
+});
 
+const errorHandler = (error) => {
+    const statusCode = error.response?.status
 
-//////////////////////////////////////////////////////////////
-/////////////-----------BoardRoute ------------///////////////
-//////////////////////////////////////////////////////////////
+    if (error.code === "ERR_CANCELED") {
+        notification.error({
+            placement: "bottomRight",
+            description: "API canceled!",
+        })
+        return Promise.resolve()
+    }
 
+    // logging only errors that are not 401
+    if (statusCode && statusCode !== 401) {
+        console.error(error)
+    }
+
+    return Promise.reject(error)
+}
+
+api.interceptors.response.use(undefined, (error) => {
+    return errorHandler(error)
+})
 
 router.get('/boards', async (req, res) => {
     try {
-        const response = await axios.get('https://api.trello.com/1/members/me/boards', {
-            params: {
-                key: apiKey,
-                token: token,
-            },
+        const response = await api.request({
+            method: "GET",
+            url: "/members/me/boards"
         });
-
         res.json(response.data);
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while fetching boards' });
     }
 });
 
-
-
-// DELETE route to delete board
 router.delete('/boards/:boardId', async (req, res) => {
     try {
-        const response = await axios.delete(`https://api.trello.com/1/boards/${req.params.boardId}`, {
-            params: {
-                key: apiKey,
-                token: token,
-            },
+        const response = await api.request({
+            method: "DELETE",
+            url: `/boards/${req.params.boardId}`
         });
 
         res.json(response.data);
@@ -45,13 +61,14 @@ router.delete('/boards/:boardId', async (req, res) => {
     }
 });
 
-// PUT route to update board
 router.put('/boards/:boardId', async (req, res) => {
     try {
-        const response = await axios.put(`https://api.trello.com/1/boards/${req.params.boardId}`, {
-            key: apiKey,
-            token: token,
-            name: req.body.name,
+        const response = await api.request({
+            method: "PUT",
+            url: `/boards/${req.params.boardId}`,
+            data: {
+                name: req.body.name,
+            }
         });
 
         res.json(response.data);
@@ -60,18 +77,15 @@ router.put('/boards/:boardId', async (req, res) => {
     }
 });
 
-// POST route to creat board
 router.post('/boards', async (req, res) => {
-    console.log('req.body', req.body)
     try {
-        const response = await axios.post('https://api.trello.com/1/boards', {
-            key: apiKey,
-            token: token,
-            name: req.body.name,
-            defaultLabels: false,
-            defaultLists: false,
-            prefs_permissionLevel: 'private',
-        });
+        const response = await api.request({
+            method: "POST",
+            url: "/boards",
+            data: {
+                name: req.body.name,
+            }
+        })
 
         res.json(response.data);
     } catch (error) {
@@ -79,17 +93,14 @@ router.post('/boards', async (req, res) => {
     }
 });
 
-//////////////////////////////////////////////////////////////
-/////////////-----------Cards Routes ------------/////////////
-//////////////////////////////////////////////////////////////
-
-// PUT route to update card
 router.put('/cards/:cardId', async (req, res) => {
     try {
-        const response = await axios.put(`https://api.trello.com/1/cards/${req.params.cardId}`, {
-            key: apiKey,
-            token: token,
-            name: req.body.name,
+        const response = await api.request({
+            method: "PUT",
+            url: `/cards/${req.params.cardId}`,
+            data: {
+                name: req.body.name,
+            }
         });
 
         res.json(response.data);
@@ -98,30 +109,26 @@ router.put('/cards/:cardId', async (req, res) => {
     }
 });
 
-// DELETE route to delete card
-
 router.delete('/cards/:cardId', async (req, res) => {
     try {
-        const response = await axios.delete(`https://api.trello.com/1/cards/${req.params.cardId}`, {
-            params: {
-                key: apiKey,
-                token: token,
-            },
-        });
+        const response = await api.request({
+            method: "DELETE",
+            url: `/cards/${req.params.cardId}`
+        
+        })
 
         res.json(response.data);
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while deleting card' });
     }
 });
-// GET route to get all cards of a list
+
 router.get('/lists/:listId/cards', async (req, res) => {
     try {
-        const response = await axios.get(`https://api.trello.com/1/lists/${req.params.listId}/cards`, {
-            params: {
-                key: apiKey,
-                token: token,
-            },
+        const response = await api.request({
+            method: "GET",
+            url: `/lists/${req.params.listId}/cards`
+        
         });
 
         res.json(response.data);
@@ -130,18 +137,12 @@ router.get('/lists/:listId/cards', async (req, res) => {
     }
 });
 
-//////////////////////////////////////////////////////////////
-/////////////-----------List Routes ------------//////////////
-//////////////////////////////////////////////////////////////
-
 router.get('/boards/:boardId/lists', async (req, res) => {
-    console.log('boardId', req.params.boardId)
+    console.log('boardId', req.params.boardId);
     try {
-        const response = await axios.get(`https://api.trello.com/1/boards/${req.params.boardId}/lists`, {
-            params: {
-                key: apiKey,
-                token: token,
-            },
+        const response = await api.request({
+            method: "GET",
+            url: `/boards/${req.params.boardId}/lists`
         });
 
         res.json(response.data);
@@ -150,15 +151,15 @@ router.get('/boards/:boardId/lists', async (req, res) => {
     }
 });
 
-
-// POST route to create list
 router.post('/boards/:boardId/lists', async (req, res) => {
     try {
-        const response = await axios.post(`https://api.trello.com/1/boards/${req.params.boardId}/lists`, {
-            key: apiKey,
-            token: token,
-            name: req.body.name,
-        });
+        const response = await api.request({
+            method: "POST",
+            url: `/boards/${req.params.boardId}/lists`,
+            data: {
+                name: req.body.name,
+            }
+        })
 
         res.json(response.data);
     } catch (error) {
@@ -166,14 +167,11 @@ router.post('/boards/:boardId/lists', async (req, res) => {
     }
 });
 
-// DELETE route to delete list
 router.delete('/lists/:listId', async (req, res) => {
     try {
-        const response = await axios.delete(`https://api.trello.com/1/lists/${req.params.listId}`, {
-            params: {
-                key: apiKey,
-                token: token,
-            },
+        const response = await api.request({
+            method: "DELETE",
+            url: `/lists/${req.params.listId}`
         });
 
         res.json(response.data);
@@ -182,14 +180,15 @@ router.delete('/lists/:listId', async (req, res) => {
     }
 });
 
-
-// PUT route to update list
 router.put('/lists/:listId', async (req, res) => {
     try {
-        const response = await axios.put(`https://api.trello.com/1/lists/${req.params.listId}`, {
-            key: apiKey,
-            token: token,
-            name: req.body.name,
+        const response = await api.request({
+            method: "PUT",
+            url: `/lists/${req.params.listId}`,
+            data: {
+                name: req.body.name,
+            }
+        
         });
 
         res.json(response.data);
@@ -198,18 +197,12 @@ router.put('/lists/:listId', async (req, res) => {
     }
 });
 
-//////////////////////////////////////////////////////////////
-/////////////-----------colaborator Roues------------/////////
-//////////////////////////////////////////////////////////////
-
-// GET route to get all user collaborators
 router.get('/user/collaborators', async (req, res) => {
     try {
-        const response = await axios.get('https://api.trello.com/1/members/me/collaborations', {
-            params: {
-                key: apiKey,
-                token: token,
-            },
+        const response = await api.request({
+            method: "GET",
+            url: "/members/me/boards"
+        
         });
 
         res.json(response.data);

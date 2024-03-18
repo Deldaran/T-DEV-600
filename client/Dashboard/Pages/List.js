@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
         maxWidth: "70%",
         borderRadius: 20,
         margin: 20,
-        height: "auto",
     },
     ListHeader: {
         backgroundColor: "#363636",
