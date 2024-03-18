@@ -1,27 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, Pressable, Text } from 'react-native';
 import DashNav from "../Components/DashNav"
 import List from "./List"
 
-const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen, isDeleteOpen}) => {
-  
-  const [listCard,setListCard]=useState([{},{}])
-
+const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen, isDeleteOpen, selectBoard, boardSelected}) => {
+  const [listCard,setListCard]=useState([])
   const [listList, setListList]= useState([])
 
+  const createCard = () => {
+    setListCard([...listCard, {}]);
+  }
+
+  const deleteList = (index) => {
+      setListList(listList.filter((list, i) => i !== index));
+    }
+  const updateList = (index) => {
+      for(i in listList){
+          if(i == index){
+              setListList(listList);
+          }
+      }
+  }
+  const fetchLists = async (boardId) => {
+    try{
+      const response = await fetch(`http://localhost:80/api/boards/${boardId}/lists`);
+      const data = await response.json();
+      setListList(data);
+      console.log('Lists:', data)
+    }catch(error){
+      console.log('An error occurred while fetching lists', error);
+      return [];
+    }
+  }
+  useEffect(() => {
+    if(Object.keys(boardSelected).length !== 0){
+      fetchLists(boardSelected.id);
+    }
+  }, [boardSelected]);
+  
   const createList = () => {
       setListList([...listList, {}]);
     }
   const selectList = ()=>{
     return(
         <View style= {style.selectList}>
-        { listList.map((card, index)=>(
-            <List titleList={"Liste"+ index} key={index}/>
+        { listList.map((list)=>(
+            <List list={list} boardSelected={boardSelected} updateList={updateList} deleteList={deleteList} createCard={createCard} titleList={list.name} key={list.id}/>
         ))}
         </View>
     )
   }
-  
   return (
     <View style= {style.BodyPage}>
       <View style= {style.createListButton}>
@@ -31,7 +59,7 @@ const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen,
       </View>
       <ScrollView >        
         <View style={style.container}>
-          {isNavOpen && <DashNav createProject={createProject} listProject={listProject} deleteProject={deleteProject} deleteOpen={deleteOpen} isDeleteOpen={isDeleteOpen}/>}
+          {isNavOpen && <DashNav selectBoard={selectBoard} createProject={createProject} listProject={listProject} deleteProject={deleteProject} deleteOpen={deleteOpen} isDeleteOpen={isDeleteOpen}/>}
             <ScrollView style={style.listContainer} >
               {selectList(listList)}
             </ScrollView>          

@@ -3,7 +3,7 @@ import { View, TouchableOpacity, StyleSheet, Image, Modal, Text, Button } from '
 import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
 
-const NavBar = ({ openNav, isNavOpen }) => {
+const NavBar = ({ OpenNav, isNavOpen }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [users, setUsers] = useState([]);
 
@@ -26,11 +26,10 @@ const NavBar = ({ openNav, isNavOpen }) => {
   const closeModal = () => {
     setModalVisible(false);
   };
-  //console.log(users)
   return (
     <View style={styles.container}>
       <View style={styles.leftContainer}>
-        <TouchableOpacity onPress={openNav}>
+        <TouchableOpacity onPress={OpenNav}>
           <FontAwesome name="list" size={24} color="#BABBBF" />
         </TouchableOpacity>
       </View>

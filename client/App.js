@@ -12,6 +12,11 @@ export default function App() {
   const [listProject, setListProject] = useState([]);
   const [isDeleteOpen, setDeleteOpen] = useState(false);
   const [listList, setListList] = useState([])
+  const [boardSelected, setBoardSelected] = useState({});
+
+  const selectboard = (board) => {
+    setBoardSelected(board);
+  }
   const OpenNav = () => {
     setIsNavOpen(!isNavOpen);
   }
@@ -28,11 +33,32 @@ export default function App() {
   const deleteCard = (index) => {
     setListCard(listList.filter((project, i) => i !== index));
   }
-  console.log(isDeleteOpen)
+   useEffect(() => {
+    const fetchBoards = async () => {
+      try{ 
+        const response = await fetch('http://localhost:80/api/boards');
+        const data = await response.json();
+        setListProject(data);
+      }catch(error){
+        console.log('An error occurred while fetching boards', error);
+        return [];
+      }
+     
+    };
+    fetchBoards();
+  }, []);
   return (
     <View style={headerStyle.container}>
       <Header OpenNav={OpenNav} />
-      <Body isNavOpen={isNavOpen} createProject={createProject} listProject={listProject} deleteProject={deleteProject} deleteOpen={deleteOpen} isDeleteOpen={isDeleteOpen} />
+      <Body 
+        boardSelected={boardSelected} 
+        selectBoard={selectboard} 
+        isNavOpen={isNavOpen} 
+        createProject={createProject} 
+        listProject={listProject} 
+        deleteProject={deleteProject} 
+        deleteOpen={deleteOpen} 
+        isDeleteOpen={isDeleteOpen} />
       {/* <Footer/> */}
     </View>
   );

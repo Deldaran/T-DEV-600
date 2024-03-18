@@ -1,40 +1,39 @@
 import { FontAwesome } from '@expo/vector-icons';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Pressable, ScrollView } from 'react-native';
 import Card from "./Card";
 
-
-let titleList = "List"
-
-const List = () => {
+const List = ({list, titleList, updateList, deleteList, createCard, boardSelected}) => {
 
     const [listCard, setListCard]= useState([])
-    const [listList, setListList]= useState([])
 
-    const createCard = () => {
-        setListCard([...listCard, {}]);
-      }
-
-    const deleteList = (index) => {
-        setListList(listList.filter((list, i) => i !== index));
-      }
-    const updateList = (index) => {
-        for(i in listList){
-            if(i == index){
-                setListList(listList);
-            }
+    const fetchCard = async (listId) => {
+        try{
+            const response = await fetch(`http://localhost:80/api/lists/${listId}/cards`);
+            const data = await response.json();
+            setListCard(data);
+            console.log('Cards:', data)
+        }catch(error){
+            console.log('An error occurred while fetching cards', error);
+            return [];
         }
     }
 
+    useEffect(() => {
+        if(Object.keys(boardSelected).length !== 0){
+            fetchCard(list.id);
+        }
+    }, [boardSelected]);
     const selectCard = ()=>{
         return(
             <View>
             { listCard.map((card, index)=>(
-                <Card titleCard={"fkdsvhfjfekndgnfhg,fdgbsvbdnfh,g;jcgnbxfljh"} key={index}/>
+                <Card titleCard={card.name} key={index}/>
             ))}
             </View>
         )
     }
+    console.log(titleList)
   return (
     <View style= {styles.ListPage}>
         <View style= {styles.ListHeader}>
@@ -64,9 +63,9 @@ const styles = StyleSheet.create({
         minWidth: 150,
         width: "70%",
         maxWidth: "70%",
-        minHeight: 300,
         borderRadius: 20,
         margin: 20,
+        height: "auto",
     },
     ListHeader: {
         height: "15%",
