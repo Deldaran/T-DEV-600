@@ -15,6 +15,7 @@ export default function App() {
   const [boardSelected, setBoardSelected] = useState({});
   const [inputName, setInputName] = useState("");
 
+
   const selectboard = (board) => {
     setBoardSelected(board);
   }
@@ -36,18 +37,7 @@ export default function App() {
     setListCard(listList.filter((project, i) => i !== index));
   }
    useEffect(() => {
-    const fetchBoards = async () => {
-      try{ 
-        const response = await fetch('http://localhost:80/api/boards');
-        const data = await response.json();
-        setListProject(data);
-      }catch(error){
-        console.log('An error occurred while fetching boards', error);
-        return [];
-      }
-     
-    };
-    fetchBoards();
+    fetchBoards(setListProject);
   }, []);
   return (
     <View style={headerStyle.container}>

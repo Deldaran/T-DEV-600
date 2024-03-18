@@ -1,37 +1,36 @@
-import axios from 'axios';
 
-//getBoard function
-const fetchBoards = async () => {
-    try {
-      const response = await axios.get('http://10.73.188.126/api/boards');
-      return response.data;
-    } catch (error) {
-      console.log('An error occurred while fetching boards', error);
-      return [];
-    }
-};
-
-//getList function
-const fetchLists = async (boardId) => {
-    try {
-      const response = await axios.get(`http://10.73.188.126/api/boards/${boardId}/lists`);
-        return response.data;
-    }
-    catch (error) {
-      console.log('An error occurred while fetching lists', error);
-      return [];
-    }
-}
-//getCard function
-const fetchCards = async (listId) => {
-    try {
-      const response = await axios.get(`http://10.73.188.126/api//lists/${listId}/cards`);
-        return response.data;
-    }
-    catch (error) {
-      console.log('An error occurred while fetching Cards', error);
-      return [];
-    }
+const fetchBoards = async (setListProject) => {
+  try{ 
+    const response = await fetch('http://localhost:80/api/boards');
+    const data = await response.json();
+    setListProject(data);
+  }catch(error){
+    console.log('An error occurred while fetching boards', error);
+    return [];
+  }
 }
 
-export { fetchBoards, fetchLists };
+const fetchLists = async (boardId, setListList) => {
+  try{
+    const response = await fetch(`http://localhost:80/api/boards/${boardId}/lists`);
+    const data = await response.json();
+    setListList(data);
+    console.log('Lists:', data)
+  }catch(error){
+    console.log('An error occurred while fetching lists', error);
+    return [];
+  }
+}
+
+const fetchCard = async (listId, setListCard) => {
+  try{
+      const response = await fetch(`http://localhost:80/api/lists/${listId}/cards`);
+      const data = await response.json();
+      setListCard(data);
+      console.log('Cards:', data)
+  }catch(error){
+      console.log('An error occurred while fetching cards', error);
+      return [];
+  }
+}
+export { fetchBoards, fetchLists, fetchCard };

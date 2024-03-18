@@ -2,26 +2,17 @@ import { FontAwesome } from '@expo/vector-icons';
 import React, {useEffect, useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Pressable, ScrollView } from 'react-native';
 import Card from "./Card";
+import { fetchCard } from "../../Utils/utils";
 
 const List = ({list, titleList, updateList, deleteList, createCard, boardSelected}) => {
 
     const [listCard, setListCard]= useState([])
 
-    const fetchCard = async (listId) => {
-        try{
-            const response = await fetch(`http://localhost:80/api/lists/${listId}/cards`);
-            const data = await response.json();
-            setListCard(data);
-            console.log('Cards:', data)
-        }catch(error){
-            console.log('An error occurred while fetching cards', error);
-            return [];
-        }
-    }
+   
 
     useEffect(() => {
         if(Object.keys(boardSelected).length !== 0){
-            fetchCard(list.id);
+            fetchCard(list.id, setListCard);
         }
     }, [boardSelected]);
     const selectCard = ()=>{

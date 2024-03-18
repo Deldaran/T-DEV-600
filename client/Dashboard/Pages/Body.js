@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, Pressable, Text } from 'react-native';
-import DashNav from "../Components/DashNav"
-import List from "./List"
+import DashNav from "../Components/DashNav";
+import List from "./List";
+import { fetchLists } from "../../Utils/utils";
 
 const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen, isDeleteOpen, selectBoard, boardSelected}) => {
   const [listCard,setListCard]=useState([])
@@ -21,20 +22,9 @@ const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen,
           }
       }
   }
-  const fetchLists = async (boardId) => {
-    try{
-      const response = await fetch(`http://localhost:80/api/boards/${boardId}/lists`);
-      const data = await response.json();
-      setListList(data);
-      console.log('Lists:', data)
-    }catch(error){
-      console.log('An error occurred while fetching lists', error);
-      return [];
-    }
-  }
   useEffect(() => {
     if(Object.keys(boardSelected).length !== 0){
-      fetchLists(boardSelected.id);
+      fetchLists(boardSelected.id, setListList);
     }
   }, [boardSelected]);
   
