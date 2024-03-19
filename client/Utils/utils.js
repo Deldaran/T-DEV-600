@@ -85,4 +85,32 @@ const fetchMembers= async (memberId, setListMembers) => {
   }
 };
 
-export { fetchBoards, fetchLists, fetchCard, postProject, delDeleteProject, putModifyProject, createList, delDeleteList, fetchMembers};
+const postCard= async (listId, cardName, setListCard) => {
+  try {
+    const response = await axios.post(`${baseURL}/lists/${listId}/cards`, { name: cardName });
+    setListCard(prevList => [...prevList, response.data]);
+  } catch (error) {
+    console.error('Error creating card:', error);
+  }
+}
+const deleteCard = async (id, setListCard) => {
+  try {
+    await axios.delete(`${baseURL}/cards/${id}`);
+    setListCard(prevList => prevList.filter((card) => id !== card.id));
+  } catch (error) {
+    console.error('Error deleting card:', error);
+  }
+}
+
+export { 
+  fetchBoards,
+  fetchLists, 
+  fetchCard, 
+  postProject, 
+  delDeleteProject, 
+  putModifyProject, 
+  createList, 
+  delDeleteList, 
+  fetchMembers,
+  postCard,
+  deleteCard};

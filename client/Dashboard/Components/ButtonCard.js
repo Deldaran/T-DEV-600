@@ -2,16 +2,16 @@ import { FontAwesome } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
 
-const ButtonCard = () => {
-    return (
-        <View style={style.container}>
-            <Pressable style={style.button}>
+const ButtonCard = ({delCard}) => {
+    return(
+        <View style= {style.container}>
+            <Pressable style= {style.button}>
                 <FontAwesome name={"pencil"} size={18} color={"white"} />
             </Pressable>
-            <Pressable style={style.button}>
+            <Pressable style= {style.button} onPress={delCard}>
                 <FontAwesome name={"trash"} size={18} color={"white"} />
             </Pressable>
-            <Pressable style={style.button}>
+            <Pressable style= {style.button}>
                 <FontAwesome name={"user"} size={18} color={"white"} />
             </Pressable>
         </View>
@@ -26,7 +26,7 @@ const style = StyleSheet.create({
     button: {
         padding: 3,
         borderRadius: 10,
-        backgroundColor: "#0086D4"
+        backgroundColor: "#A1B5FE"
     }
 })
 

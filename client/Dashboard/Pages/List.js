@@ -2,12 +2,17 @@ import { FontAwesome } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Pressable, ScrollView } from 'react-native';
 import Card from "./Card";
-import { fetchCard } from "../../Utils/utils";
+import { fetchCard, postCard, deleteCard } from "../../Utils/utils";
 
 const List = ({ list, titleList, updateList, deleteList, createCard, boardSelected }) => {
 
     const [listCard, setListCard] = useState([])
-
+    const addCard = () => {
+        postCard(list.id, "newCard", setListCard);
+    }
+    const delCard = (cardId) => {
+        deleteCard(cardId, setListCard);
+    }
     useEffect(() => {
         if (Object.keys(boardSelected).length !== 0) {
             fetchCard(list.id, setListCard);
@@ -17,7 +22,7 @@ const List = ({ list, titleList, updateList, deleteList, createCard, boardSelect
         return (
             <View style={styles.ListCard}>
                 {listCard.map((card, index) => (
-                    <Card titleCard={card.name} key={index} />
+                    <Card card ={card} delCard={delCard} addCard={addCard} titleCard={card.name} key={index} />
                 ))}
             </View>
         )
@@ -37,7 +42,7 @@ const List = ({ list, titleList, updateList, deleteList, createCard, boardSelect
                 {selectCard()}
             </ScrollView>
             <View style={styles.ListFooter}>
-                <Pressable onPress={createCard}>
+                <Pressable onPress={addCard}>
                     <Text style={componentStyle.text}>+ Add a card</Text>
                 </Pressable>
             </View>

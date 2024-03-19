@@ -149,7 +149,34 @@ router.get('/boards/:boardId/lists', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching lists' });
     }
 });
+router.post('/lists/:listId/cards', async (req, res) => {
+    try {
+        const response = await api.request({
+            method: "POST",
+            url: `/lists/${req.params.listId}/cards`,
+            data: {
+                name: req.body.name,
+            }
+        });
 
+        res.json(response.data);
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred while creating card' });
+    }
+});
+router.delete('cards/:cardId', async (req, res) => {
+    try {
+        const response = await api.request({
+            method: "DELETE",
+            url: `/cards/${req.params.cardId}`
+        });
+
+        res.json(response.data);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'An error occurred while deleting card' });
+    }
+});
 router.post('/boards/:boardId/lists', async (req, res) => {
     try {
         const response = await api.request({

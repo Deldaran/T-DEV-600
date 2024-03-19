@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
 import ButtonCard from "../Components/ButtonCard";
 
-const Card = ({ titleCard }) => {
+const Card = ({ titleCard, delCard, card }) => {
   const [title, setTitle] = useState(() => {
     if (titleCard.length > 15) {
       return titleCard.slice(0, 15) + '...';
@@ -26,7 +26,7 @@ const Card = ({ titleCard }) => {
     <View style={styles.CardBody}>
       <Pressable onPress={handlePress}>
         <Text style={componentStyle.text}>{title}</Text>
-        {pressed ? <ButtonCard /> : ""}
+        {pressed ? <ButtonCard delCard={()=> delCard(card.id)} /> : ""}
       </Pressable>
     </View>
   );
