@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     width: 150,
   },
   okButton: {
-    backgroundColor: '#A1B5FE',
+    backgroundColor: '#0086D4',
     borderRadius: 5,
     padding: 5,
   },
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   addButton: {
-    backgroundColor: '#A1B5FE',
+    backgroundColor: '#0086D4',
     borderRadius: 5,
     padding: 10,
   },

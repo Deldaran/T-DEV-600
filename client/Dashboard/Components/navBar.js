@@ -29,7 +29,7 @@ const NavBar = ({ OpenNav, isNavOpen }) => {
     <View style={styles.container}>
       <View style={styles.leftContainer}>
         <TouchableOpacity onPress={OpenNav}>
-          <FontAwesome name="list" size={24} color="#BABBBF" />
+          <FontAwesome name="list" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
 
@@ -82,9 +82,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   profileImage: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
+    width: 30,
+    height: 30,
+    borderRadius: 40,
   },
   modalContainer: {
     flex: 1,
