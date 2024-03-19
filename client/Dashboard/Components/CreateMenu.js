@@ -8,7 +8,7 @@ const CreateMenu = ({ newProjectName, setNewProjectName, isEditing, setIsEditing
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
-            placeholder="Enter project name"
+            placeholder="project name"
             value={newProjectName}
             onChangeText={setNewProjectName}
           />
@@ -28,13 +28,13 @@ const CreateMenu = ({ newProjectName, setNewProjectName, isEditing, setIsEditing
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-end',
     marginTop: 5,
   },
   inputContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
   },
   input: {
@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     marginRight: 10,
-    width: 150,
   },
   okButton: {
     backgroundColor: '#0086D4',

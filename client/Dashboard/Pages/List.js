@@ -26,7 +26,7 @@ const List = ({ list, titleList, updateList, deleteList, createCard, boardSelect
         <ScrollView style={styles.ListPage}>
             <View style={styles.ListHeader}>
                 <Text style={componentStyle.text}>{titleList}</Text>
-                <Pressable onPress={deleteList}>
+                <Pressable onPress={()=>deleteList(list.id)}>
                     <FontAwesome name={"trash"} size={18} color={"#0086D4"} />
                 </Pressable>
                 <Pressable onPress={updateList}>

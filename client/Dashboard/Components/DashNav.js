@@ -11,12 +11,16 @@ const DashNav = ({putProject, createProject,listProject, deleteProject, isdelete
     const [isModify, setIsModify] = useState(false);
 
   const handleCreateProject = () => {
+    if(newProjectName === '') {
+      setNewProjectName('');
+      setIsEditing(false);
+      return;
+    };
     createProject(newProjectName);
     setNewProjectName('');
     setIsEditing(false);
   };
   const numList = () => {
-    console.log(isEditing)
     return (
       <View style={style.projectContainer}>
         {listProject.map((project, index) => (
@@ -81,6 +85,7 @@ const style = StyleSheet.create({
     marginTop: 20,
     paddingLeft: 10,
   },
+  
 })
 
 export default DashNav;

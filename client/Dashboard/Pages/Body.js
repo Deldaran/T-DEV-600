@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, Pressable, Text } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, Pressable, Text, ImageBackground } from 'react-native';
 import DashNav from "../Components/DashNav";
 import List from "./List";
-import { fetchLists, createList } from "../../Utils/utils";
+import { fetchLists, createList, delDeleteList } from "../../Utils/utils";
 
 const Body = ({putProject, isNavOpen, createProject, listProject, deleteProject, deleteOpen, isDeleteOpen, selectBoard, boardSelected}) => {
   const [listCard,setListCard]=useState([])
@@ -12,7 +12,8 @@ const Body = ({putProject, isNavOpen, createProject, listProject, deleteProject,
     setListCard([...listCard, {}]);
   }
 
-  const deleteList = () => {
+  const deleteList = (listId) => {
+    delDeleteList(listId, setListList);
     setListList(listList.filter((list) => boardSelected.id !== list.id));
   }
   const updateList = (index) => {
@@ -40,30 +41,34 @@ const Body = ({putProject, isNavOpen, createProject, listProject, deleteProject,
       </View>
     )
   }
+  console.log(boardSelected)
   return (
-    <View style= {style.bodyPage}>
-      <View style= {style.createListButton}>
-          <Pressable onPress={postList}>
-            <Text style= {style.createButtonText}>+</Text>
-          </Pressable>
-      </View>
-      <ScrollView >
-        <View style={style.container}>
-          {isNavOpen && 
-          <DashNav
-            putProject={putProject}
-            selectBoard={selectBoard} 
-            createProject={createProject} 
-            listProject={listProject} 
-            deleteProject={deleteProject} 
-            deleteOpen={deleteOpen} 
-            isDeleteOpen={isDeleteOpen}/>}
-            <ScrollView style={style.listContainer} >
-              {selectList(listList)}
-            </ScrollView>          
+    <ImageBackground source={boardSelected.prefs && boardSelected.prefs.backgroundImage} style= {style.bodyPage}>
+      <View >
+        <View style= {style.createListButton}>
+            <Pressable onPress={postList}>
+              <Text style= {style.createButtonText}>+</Text>
+            </Pressable>
         </View>
-      </ScrollView>
-    </View>
+        <ScrollView >
+          <View style={style.container}>
+            {isNavOpen && 
+            <DashNav
+              putProject={putProject}
+              selectBoard={selectBoard} 
+              createProject={createProject} 
+              listProject={listProject} 
+              deleteProject={deleteProject} 
+              deleteOpen={deleteOpen} 
+              isDeleteOpen={isDeleteOpen}/>}
+              <ScrollView style={style.listContainer} >
+                {selectList(listList)}
+              </ScrollView>          
+          </View>
+        </ScrollView>
+      </View>
+    </ImageBackground>
+    
   );
 };
 
@@ -71,7 +76,8 @@ const style = StyleSheet.create({
   bodyPage: {
     width: "100%",
     height: "100%",
-    backgroundColor: "white"
+    flex: 1,
+    backgroundColor: "white",
   },
   container: {
     // minHeight: "100%",

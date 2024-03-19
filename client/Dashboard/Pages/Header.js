@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import NavBar from '../Components/navBar';
 
-const Header = ({ OpenNav }) => {
+const Header = ({ OpenNav, boardSelected }) => {
   return (
     <View style={style.container}>
-      <NavBar OpenNav={OpenNav} />
+      <NavBar OpenNav={OpenNav} boardSelected={boardSelected} />
     </View>
   );
 };

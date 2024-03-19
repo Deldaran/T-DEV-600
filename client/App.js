@@ -42,7 +42,7 @@ export default function App() {
   }, []);
   return (
     <View style={headerStyle.container}>
-      <Header OpenNav={OpenNav} />
+      <Header OpenNav={OpenNav}  boardSelected={boardSelected}  />
       <Body 
         boardSelected={boardSelected} 
         selectBoard={selectboard} 

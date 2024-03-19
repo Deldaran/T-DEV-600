@@ -67,5 +67,22 @@ const createList = async (boardId, listName, setListList) => {
     console.error('Error creating list:', error);
   }
 }
+const delDeleteList = async (id, setListList) => {
+  try {
+    await axios.put(`${baseURL}/lists/${id}/closed`, { value: true });
+    setListList(prevList => prevList.filter((list) => id !== list.id));
+  } catch (error) {
+    console.error('Error deleting list:', error);
+  }
+};
+const fetchMembers= async (memberId, setListMembers) => {
+  try{
+    const response = await axios.get(`${baseURL}/members/${memberId}`);
+    setListMembers(response.data);
+  } catch(error) {
+    console.log('An error occurred while fetching members', error);
+    return [];
+  }
+};
 
-export { fetchBoards, fetchLists, fetchCard, postProject, delDeleteProject, putModifyProject, createList};
+export { fetchBoards, fetchLists, fetchCard, postProject, delDeleteProject, putModifyProject, createList, delDeleteList, fetchMembers};
