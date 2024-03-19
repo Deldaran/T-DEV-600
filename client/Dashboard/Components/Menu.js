@@ -18,18 +18,18 @@ const Menu = ({createProject, deleteOpen, setmodify}) => {
 const style = StyleSheet.create({
     textStyle: {
         flexDirection: "row",
-        backgroundColor: "#A1B5FE",
-        width:80,
+        backgroundColor: "#0086D4",
+        width: 80,
     },
-    boutonPencilStyle:{
+    boutonPencilStyle: {
         paddingTop: 11,
         paddingLeft: 25,
     },
-    boutonPlusStyle:{
+    boutonPlusStyle: {
         paddingTop: 11,
         paddingLeft: 27,
     },
-    boutonTrashStyle:{
+    boutonTrashStyle: {
         paddingTop: 11,
         paddingLeft: 25,
     }

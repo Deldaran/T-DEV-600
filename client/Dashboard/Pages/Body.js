@@ -13,17 +13,17 @@ const Body = ({putProject, isNavOpen, createProject, listProject, deleteProject,
   }
 
   const deleteList = () => {
-      setListList(listList.filter((list) => boardSelected.id !== list.id));
-    }
+    setListList(listList.filter((list) => boardSelected.id !== list.id));
+  }
   const updateList = (index) => {
-      for(i in listList){
-          if(i == index){
-              setListList(listList);
-          }
+    for (i in listList) {
+      if (i == index) {
+        setListList(listList);
       }
+    }
   }
   useEffect(() => {
-    if(Object.keys(boardSelected).length !== 0){
+    if (Object.keys(boardSelected).length !== 0) {
       fetchLists(boardSelected.id, setListList);
     }
   }, [boardSelected]);
@@ -37,7 +37,7 @@ const Body = ({putProject, isNavOpen, createProject, listProject, deleteProject,
         { listList.map((list)=>(
             <List list={list} boardSelected={boardSelected} updateList={updateList} deleteList={deleteList} createCard={createCard} titleList={list.name} key={list.id}/>
         ))}
-        </View>
+      </View>
     )
   }
   return (
@@ -47,7 +47,7 @@ const Body = ({putProject, isNavOpen, createProject, listProject, deleteProject,
             <Text style= {style.createButtonText}>+</Text>
           </Pressable>
       </View>
-      <ScrollView >        
+      <ScrollView >
         <View style={style.container}>
           {isNavOpen && 
           <DashNav
@@ -74,33 +74,29 @@ const style = StyleSheet.create({
     backgroundColor: "white"
   },
   container: {
-    minHeight: "100%",
+    // minHeight: "100%",
     flexDirection: 'row',
   },
   listContainer: {
     flexDirection: 'row',
-    marginBottom: 10,
   },
   createListButton: {
     position: "absolute",
-    bottom: 130,
-    right: 20,
+    bottom: 125,
+    right: 5,
     zIndex: 2,
-    marginRight: 20,
-    marginTop: 10,
-    padding: 10,
-    paddingLeft: 15,
-    paddingRight: 15,
-    backgroundColor: "#A1B5FE",    
-    borderRadius: 15,
-   
+    width: 48,
+    height: 48,
+    paddingLeft: 14,
+    backgroundColor: "#0086D4",
+    borderRadius: 100,
   },
   selectList: {
-    margin: 20,
-    flex: 1,
+    margin: 'auto',
+    // flex: 1,
   },
   createButtonText: {
-    fontSize: 25,
+    fontSize: 35,
   }
 });
 
