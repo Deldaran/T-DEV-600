@@ -4,62 +4,62 @@ import DashNav from "../Components/DashNav";
 import List from "./List";
 import { fetchLists } from "../../Utils/utils";
 
-const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen, isDeleteOpen, selectBoard, boardSelected}) => {
-  const [listCard,setListCard]=useState([])
-  const [listList, setListList]= useState([])
+const Body = ({ isNavOpen, createProject, listProject, deleteProject, deleteOpen, isDeleteOpen, selectBoard, boardSelected }) => {
+  const [listCard, setListCard] = useState([])
+  const [listList, setListList] = useState([])
 
   const createCard = () => {
     setListCard([...listCard, {}]);
   }
 
   const deleteList = () => {
-      setListList(listList.filter((list) => boardSelected.id !== list.id));
-    }
+    setListList(listList.filter((list) => boardSelected.id !== list.id));
+  }
   const updateList = (index) => {
-      for(i in listList){
-          if(i == index){
-              setListList(listList);
-          }
+    for (i in listList) {
+      if (i == index) {
+        setListList(listList);
       }
+    }
   }
   useEffect(() => {
-    if(Object.keys(boardSelected).length !== 0){
+    if (Object.keys(boardSelected).length !== 0) {
       fetchLists(boardSelected.id, setListList);
     }
   }, [boardSelected]);
-  
+
   const createList = () => {
-      setListList([...listList, {}]);
-    }
-  const selectList = ()=>{
-    return(
-        <View style= {style.selectList}>
-        { listList.map((list)=>(
-            <List list={list} boardSelected={boardSelected} updateList={updateList} deleteList={deleteList} createCard={createCard} titleList={list.name} key={list.id}/>
+    setListList([...listList, {}]);
+  }
+  const selectList = () => {
+    return (
+      <View style={style.selectList}>
+        {listList.map((list) => (
+          <List list={list} boardSelected={boardSelected} updateList={updateList} deleteList={deleteList} createCard={createCard} titleList={list.name} key={list.id} />
         ))}
-        </View>
+      </View>
     )
   }
   return (
-    <View style= {style.bodyPage}>
-      <View style= {style.createListButton}>
-          <Pressable onPress={createList}>
-            <Text style= {style.createButtonText}>+</Text>
-          </Pressable>
+    <View style={style.bodyPage}>
+      <View style={style.createListButton}>
+        <Pressable onPress={createList}>
+          <Text style={style.createButtonText}>+</Text>
+        </Pressable>
       </View>
-      <ScrollView >        
+      <ScrollView >
         <View style={style.container}>
-          {isNavOpen && 
-          <DashNav 
-            selectBoard={selectBoard} 
-            createProject={createProject} 
-            listProject={listProject} 
-            deleteProject={deleteProject} 
-            deleteOpen={deleteOpen} 
-            isDeleteOpen={isDeleteOpen}/>}
-            <ScrollView style={style.listContainer} >
-              {selectList(listList)}
-            </ScrollView>          
+          {isNavOpen &&
+            <DashNav
+              selectBoard={selectBoard}
+              createProject={createProject}
+              listProject={listProject}
+              deleteProject={deleteProject}
+              deleteOpen={deleteOpen}
+              isDeleteOpen={isDeleteOpen} />}
+          <ScrollView style={style.listContainer} >
+            {selectList(listList)}
+          </ScrollView>
         </View>
       </ScrollView>
     </View>
@@ -73,33 +73,29 @@ const style = StyleSheet.create({
     backgroundColor: "white"
   },
   container: {
-    minHeight: "100%",
+    // minHeight: "100%",
     flexDirection: 'row',
   },
   listContainer: {
     flexDirection: 'row',
-    marginBottom: 10,
   },
   createListButton: {
     position: "absolute",
-    bottom: 130,
-    right: 20,
+    bottom: 125,
+    right: 5,
     zIndex: 2,
-    marginRight: 20,
-    marginTop: 10,
-    padding: 10,
-    paddingLeft: 15,
-    paddingRight: 15,
-    backgroundColor: "#A1B5FE",    
-    borderRadius: 15,
-   
+    width: 48,
+    height: 48,
+    paddingLeft: 14,
+    backgroundColor: "#0086D4",
+    borderRadius: 100,
   },
   selectList: {
-    margin: 20,
-    flex: 1,
+    margin: 'auto',
+    // flex: 1,
   },
   createButtonText: {
-    fontSize: 25,
+    fontSize: 35,
   }
 });
 
