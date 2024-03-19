@@ -5,9 +5,10 @@ import Menu from './Menu';
 import { FontAwesome } from '@expo/vector-icons';
 import CreateMenu from './CreateMenu';
 
-const DashNav = ({createProject,listProject, deleteProject, isdeleteProject, deleteOpen, isDeleteOpen, selectBoard}) => {
+const DashNav = ({putProject, createProject,listProject, deleteProject, isdeleteProject, deleteOpen, isDeleteOpen, selectBoard}) => {
     const [newProjectName, setNewProjectName] = useState('');
     const [isEditing, setIsEditing] = useState(false);
+    const [isModify, setIsModify] = useState(false);
 
     const handleCreateProject = () => {
         createProject(newProjectName);
@@ -15,19 +16,26 @@ const DashNav = ({createProject,listProject, deleteProject, isdeleteProject, del
         setIsEditing(false);
         };
   const numList = () => {
+    console.log(isEditing)
     return (
       <View style={style.projectContainer}>
         {listProject.map((project, index) => (
         <TouchableOpacity key={index} onPress={() => selectBoard(project)} style={style.projectStyle}>
             <Text>{project.name}</Text>
-            {isDeleteOpen && <TouchableOpacity style={style.boutonTrashStyle} onPress={() => deleteProject(project.id)}>
-              <FontAwesome name={"trash"} size={18} color={"white"} />
-            </TouchableOpacity>}
+            {isDeleteOpen 
+              && 
+              <TouchableOpacity style={style.boutonTrashStyle} onPress={() => deleteProject(project.id)}>
+                <FontAwesome name={"trash"} size={18} color={"white"} />
+              </TouchableOpacity>
+            }
         </TouchableOpacity>
         ))}
       </View>
     );
   };
+  const setmodify= ()=>{
+    setIsModify(!isModify)
+  }
   return (
     <View style={style.container}>
       <Text style={style.textStyle}>Your Board</Text>
@@ -40,16 +48,16 @@ const DashNav = ({createProject,listProject, deleteProject, isdeleteProject, del
           handleCreateProject={handleCreateProject}
         />
         <Menu 
+            setIsModify={setmodify}
             deleteProject={deleteProject} 
             deleteOpen={deleteOpen}
-            />
+        />
        
       </View>
       {listProject? numList(listProject): null}
     </View>
   );
 };
-
 const style = StyleSheet.create({
     container: {
         backgroundColor: '#A1B5FE',

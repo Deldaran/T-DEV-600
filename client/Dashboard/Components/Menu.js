@@ -2,10 +2,10 @@ import { FontAwesome } from '@expo/vector-icons';
 import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-const Menu = ({createProject, deleteOpen}) => {
+const Menu = ({createProject, deleteOpen, setmodify}) => {
   return (
     <View style={style.textStyle}>
-        <TouchableOpacity style={style.boutonPencilStyle}>
+        <TouchableOpacity style={style.boutonPencilStyle} onPress={setmodify}>
             <FontAwesome name={"pencil"} size={18} color={"white"} />
         </TouchableOpacity>
         <TouchableOpacity style={style.boutonTrashStyle} onPress={deleteOpen}>

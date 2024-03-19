@@ -41,7 +41,7 @@ const postProject = async (projectName, setListProject) => {
   }
 };
 
-const postDeleteProject = async (id, setListProject) => {
+const delDeleteProject = async (id, setListProject) => {
   try {
     await axios.delete(`${baseURL}/boards/${id}`);
     setListProject(prevList => prevList.filter((project) => id !== project.id));
@@ -50,4 +50,22 @@ const postDeleteProject = async (id, setListProject) => {
   }
 };
 
-export { fetchBoards, fetchLists, fetchCard, postProject, postDeleteProject };
+const putModifyProject = async (id, setListProject) => {
+  try {
+    await axios.put(`${baseURL}/boards/${id}`);
+    setListProject(prevList => prevList.filter((project) => id !== project.id));
+  } catch (error) {
+    console.error('Error modifying project:', error);
+  }
+};
+
+const createList = async (boardId, listName, setListList) => {
+  try {
+    const response = await axios.post(`${baseURL}/boards/${boardId}/lists`, { name: listName });
+    setListList(prevList => [...prevList, response.data]);
+  } catch (error) {
+    console.error('Error creating list:', error);
+  }
+}
+
+export { fetchBoards, fetchLists, fetchCard, postProject, delDeleteProject, putModifyProject, createList};

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, Pressable, Text } from 'react-native';
 import DashNav from "../Components/DashNav";
 import List from "./List";
-import { fetchLists } from "../../Utils/utils";
+import { fetchLists, createList } from "../../Utils/utils";
 
-const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen, isDeleteOpen, selectBoard, boardSelected}) => {
+const Body = ({putProject, isNavOpen, createProject, listProject, deleteProject, deleteOpen, isDeleteOpen, selectBoard, boardSelected}) => {
   const [listCard,setListCard]=useState([])
   const [listList, setListList]= useState([])
 
@@ -28,8 +28,8 @@ const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen,
     }
   }, [boardSelected]);
   
-  const createList = () => {
-      setListList([...listList, {}]);
+  const postList = () => {
+    createList(boardSelected.id,"newList", setListList);
     }
   const selectList = ()=>{
     return(
@@ -43,14 +43,15 @@ const Body = ({isNavOpen, createProject, listProject, deleteProject, deleteOpen,
   return (
     <View style= {style.bodyPage}>
       <View style= {style.createListButton}>
-          <Pressable onPress={createList}>
+          <Pressable onPress={postList}>
             <Text style= {style.createButtonText}>+</Text>
           </Pressable>
       </View>
       <ScrollView >        
         <View style={style.container}>
           {isNavOpen && 
-          <DashNav 
+          <DashNav
+            putProject={putProject}
             selectBoard={selectBoard} 
             createProject={createProject} 
             listProject={listProject} 
