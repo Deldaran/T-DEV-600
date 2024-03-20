@@ -138,7 +138,7 @@ router.get('/lists/:listId/cards', async (req, res) => {
 });
 
 router.get('/boards/:boardId/lists', async (req, res) => {
-    console.log('boardId', req.params.boardId);
+
     try {
         const response = await api.request({
             method: "GET",
@@ -150,7 +150,35 @@ router.get('/boards/:boardId/lists', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching lists' });
     }
 });
+router.post('/lists/:listId/cards', async (req, res) => {
+    try {
+        const response = await api.request({
+            method: "POST",
+            url: `/lists/${req.params.listId}/cards`,
+            data: {
+                name: req.body.name,
+            }
+        });
 
+
+        res.json(response.data);
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred while creating card' });
+    }
+});
+router.delete('cards/:cardId', async (req, res) => {
+    try {
+        const response = await api.request({
+            method: "DELETE",
+            url: `/cards/${req.params.cardId}`
+        });
+
+        res.json(response.data);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'An error occurred while deleting card' });
+    }
+});
 router.post('/boards/:boardId/lists', async (req, res) => {
     try {
         const response = await api.request({
@@ -167,16 +195,21 @@ router.post('/boards/:boardId/lists', async (req, res) => {
     }
 });
 
-router.delete('/lists/:listId', async (req, res) => {
+
+router.put('/lists/:listId/closed', async (req, res) => {
     try {
         const response = await api.request({
-            method: "DELETE",
-            url: `/lists/${req.params.listId}`
+            method: "PUT",
+            url: `/lists/${req.params.listId}/closed`,
+            data: {
+                value: req.body.value,
+            }
+
         });
 
         res.json(response.data);
     } catch (error) {
-        res.status(500).json({ error: 'An error occurred while deleting list' });
+        res.status(500).json({ error: 'An error occurred while closing list' });
     }
 });
 
@@ -208,6 +241,18 @@ router.get('/user/collaborators', async (req, res) => {
         res.json(response.data);
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while fetching user collaborators' });
+    }
+});
+router.get('/members/:memberId', async (req, res) => {
+    try {
+        const response = await api.request({
+            method: "GET",
+            url: `/members/${req.params.memberId}`
+        });
+
+        res.json(response.data);
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred while fetching members' });
     }
 });
 module.exports = router;

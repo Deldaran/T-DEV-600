@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
 import ButtonCard from "../Components/ButtonCard";
 
-const Card = ({ titleCard }) => {
+const Card = ({ titleCard, delCard, card }) => {
   const [title, setTitle] = useState(() => {
     if (titleCard.length > 15) {
       return titleCard.slice(0, 15) + '...';
@@ -23,24 +23,33 @@ const Card = ({ titleCard }) => {
   };
 
   return (
-      <View style={styles.CardBody}>
-        <Pressable onPress={handlePress}>
-          <Text style={componentStyle.text}>{title}</Text>
-          { pressed ? <ButtonCard/> : ""}
-        </Pressable>
-      </View>
+    <View style={styles.CardBody}>
+      <Pressable onPress={handlePress}>
+        <Text style={componentStyle.text}>{title}</Text>
+        {pressed ? <ButtonCard delCard={()=> delCard(card.id)} /> : ""}
+      </Pressable>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   CardBody: {
-    backgroundColor: '#ffffff',
-    width: '100px',
+
+    backgroundColor: '#fff',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
-    margin: 7,
-    borderRadius: 20,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    marginHorizontal: 7,
+    marginBottom: 10,
+    padding: 4,
   },
 });
 
@@ -54,6 +63,9 @@ const componentStyle = StyleSheet.create({
     position: 'relative',
     bottom: 4,
   },
+  ListCard: {
+
+  }
 });
 
 export default Card;

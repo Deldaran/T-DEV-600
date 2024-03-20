@@ -4,7 +4,8 @@ import Header from './Dashboard/Pages/Header';
 import Body from './Dashboard/Pages/Body';
 import Footer from './Dashboard/Pages/Footer';
 import { useEffect, useState } from 'react';
-import { postProject, fetchBoards, postDeleteProject } from './Utils/utils';
+import { postProject, fetchBoards, delDeleteProject } from './Utils/utils';
+
 
 
 export default function App() {
@@ -26,7 +27,11 @@ export default function App() {
   }
   
   const deleteProject = (id) => {
-    postDeleteProject(id, setListProject);
+
+    delDeleteProject(id, setListProject);
+  }
+  const putProject = (id) => {
+    putProject(id, setListProject);
   }
   const deleteOpen = () => {
     setDeleteOpen(!isDeleteOpen);
@@ -39,7 +44,7 @@ export default function App() {
   }, []);
   return (
     <View style={headerStyle.container}>
-      <Header OpenNav={OpenNav} />
+      <Header OpenNav={OpenNav}  boardSelected={boardSelected}  />
       <Body 
         boardSelected={boardSelected} 
         selectBoard={selectboard} 
@@ -48,6 +53,7 @@ export default function App() {
         listProject={listProject} 
         deleteProject={deleteProject} 
         deleteOpen={deleteOpen} 
+        putProject={putProject}
         isDeleteOpen={isDeleteOpen} />
       {/* <Footer/> */}
     </View>
