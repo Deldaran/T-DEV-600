@@ -60,7 +60,7 @@ const style = StyleSheet.create({
         flexDirection: "column",
     },
     textStyle: {
-      backgroundColor: "#7B8BC7",
+      backgroundColor: "#7B8BC7",   
       height: 35,
       paddingTop: 8,
       paddingLeft: 20,

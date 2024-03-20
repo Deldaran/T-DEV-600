@@ -14,6 +14,6 @@ app.use('/api', router);
 
 
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+    console.log(`Server is running at http://10.73.188.131:${port}`);
 });
 module.exports = router;

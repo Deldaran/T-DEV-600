@@ -29,7 +29,7 @@ const NavBar = ({ OpenNav, isNavOpen }) => {
     <View style={styles.container}>
       <View style={styles.leftContainer}>
         <TouchableOpacity onPress={OpenNav}>
-          <FontAwesome name="list" size={24} color="#BABBBF" />
+          <FontAwesome name="list" size={24} color="#FFFFFF" />
         </TouchableOpacity>
       </View>
 

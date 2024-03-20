@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://10.73.189.69:80/api';
+const baseURL = 'http://10.73.188.131:8080/api';
 
 const fetchBoards = async (setListProject) => {
   try{ 
