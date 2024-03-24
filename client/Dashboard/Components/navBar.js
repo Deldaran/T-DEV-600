@@ -33,6 +33,7 @@ const NavBar = ({ OpenNav, isNavOpen, boardSelected }) => {
     <View style={styles.container}>
       <View style={styles.leftContainer}>
         <TouchableOpacity onPress={OpenNav}>
+
           <FontAwesome name="list" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
@@ -77,12 +78,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
+
     height: 100
+
   },
   leftContainer: {
     justifyContent: 'center',
   },
   rightContainer: {
+
     flexDirection: 'row',
     alignItems: 'center',
   },

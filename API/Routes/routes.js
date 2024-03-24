@@ -138,6 +138,7 @@ router.get('/lists/:listId/cards', async (req, res) => {
 });
 
 router.get('/boards/:boardId/lists', async (req, res) => {
+
     try {
         const response = await api.request({
             method: "GET",
@@ -158,6 +159,7 @@ router.post('/lists/:listId/cards', async (req, res) => {
                 name: req.body.name,
             }
         });
+
 
         res.json(response.data);
     } catch (error) {
@@ -193,6 +195,7 @@ router.post('/boards/:boardId/lists', async (req, res) => {
     }
 });
 
+
 router.put('/lists/:listId/closed', async (req, res) => {
     try {
         const response = await api.request({
@@ -201,6 +204,7 @@ router.put('/lists/:listId/closed', async (req, res) => {
             data: {
                 value: req.body.value,
             }
+
         });
 
         res.json(response.data);

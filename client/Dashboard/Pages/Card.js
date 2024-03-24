@@ -34,6 +34,7 @@ const Card = ({ titleCard, delCard, card }) => {
 
 const styles = StyleSheet.create({
   CardBody: {
+
     backgroundColor: '#fff',
     justifyContent: 'space-between',
     alignItems: 'center',

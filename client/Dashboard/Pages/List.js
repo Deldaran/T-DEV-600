@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, Pressable, ScrollV
 import Card from "./Card";
 import { fetchCard, postCard, deleteCard } from "../../Utils/utils";
 
+
 const List = ({ list, titleList, updateList, deleteList, createCard, boardSelected }) => {
 
     const [listCard, setListCard] = useState([])

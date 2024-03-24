@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { postProject, fetchBoards, delDeleteProject } from './Utils/utils';
 
 
+
 export default function App() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [listProject, setListProject] = useState([]);
@@ -26,6 +27,7 @@ export default function App() {
   }
   
   const deleteProject = (id) => {
+
     delDeleteProject(id, setListProject);
   }
   const putProject = (id) => {

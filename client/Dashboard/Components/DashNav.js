@@ -26,6 +26,7 @@ const DashNav = ({putProject, createProject,listProject, deleteProject, isdelete
         {listProject.map((project, index) => (
           <TouchableOpacity key={index} onPress={() => selectBoard(project)} style={style.projectStyle}>
             <Text>{project.name}</Text>
+
             {isDeleteOpen 
               && 
               <TouchableOpacity style={style.boutonTrashStyle} onPress={() => deleteProject(project.id)}>
@@ -44,7 +45,9 @@ const DashNav = ({putProject, createProject,listProject, deleteProject, isdelete
     <View style={style.container}>
       <Text style={style.textStyle}>Your Board</Text>
       <View style={style.menuContenair}>
+
         <CreateMenu
+
           newProjectName={newProjectName}
           setNewProjectName={setNewProjectName}
           isEditing={isEditing}
@@ -52,6 +55,7 @@ const DashNav = ({putProject, createProject,listProject, deleteProject, isdelete
           handleCreateProject={handleCreateProject}
         />
         <Menu 
+
             setIsModify={setmodify}
             deleteProject={deleteProject} 
             deleteOpen={deleteOpen}
@@ -63,6 +67,7 @@ const DashNav = ({putProject, createProject,listProject, deleteProject, isdelete
   );
 };
 const style = StyleSheet.create({
+
   container: {
     backgroundColor: '#0086D4',
     width: '30%',

@@ -12,6 +12,7 @@ const Body = ({putProject, isNavOpen, createProject, listProject, deleteProject,
     setListCard([...listCard, {}]);
   }
 
+
   const deleteList = (listId) => {
     delDeleteList(listId, setListList);
     setListList(listList.filter((list) => boardSelected.id !== list.id));
@@ -43,6 +44,7 @@ const Body = ({putProject, isNavOpen, createProject, listProject, deleteProject,
   }
   console.log(boardSelected)
   return (
+
     <ImageBackground source={boardSelected.prefs && boardSelected.prefs.backgroundImage} style= {style.bodyPage}>
       <View >
         <View style= {style.createListButton}>
